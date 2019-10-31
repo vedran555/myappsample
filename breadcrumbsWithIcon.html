@@ -1,0 +1,31 @@
+<!-- anchor -->
+<ng-container *ngIf="anchorText !== undefined">
+    <button (click)="onAnchorClick()">{{ anchorText }}</button>
+    <span uiIcon="angle-right"></span>
+</ng-container>
+
+<!-- button dropdown -->
+<ui-select *ngIf="excerptedCrumbsNum > 0"
+           [multiple]="false"
+           [value]="buttonDropdownText"
+           [placeholder]="buttonDropdownText"
+           [selectIcon]="buttonDropdownIcon">//////////////  !!!!!!!!!!!!!!!!!!!! //////////////////
+                <ui-option *ngFor="let crumb of excerptedCrumbs"
+                           [label]="buttonDropdownText"
+                           [value]="crumb.content"
+                           (click)="onBreadcrumbClick(crumb)">
+                    <span [uiIcon]="crumb.icon"></span>{{ crumb.content }}
+                </ui-option>
+</ui-select>
+
+<!-- visible breadcrumbs -->
+<span *ngFor="let crumb of visibleCrumbs; first as first">
+    <!-- divider -->
+    <span *ngIf="excerptedCrumbsNum > 0 || !first" uiIcon="angle-right"></span>
+
+    <!-- breadcrumb -->
+    <button *ngIf="crumb.type === 'button'"
+            uiButton
+            (click)="onBreadcrumbClick(crumb)">{{ crumb.content }}</button>
+    <span *ngIf="crumb.type === 'label'">{{ crumb.content }}</span>
+</span>

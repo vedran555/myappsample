@@ -1,0 +1,31 @@
+<ng-container [ngSwitch]="!!triggerDirective">
+    <span *ngIf="selectIcon" [uiIcon]="selectIcon"></span> //////////////  !!!!!!!!!!!!!!!!!!!! //////////////////
+    <ng-content *ngSwitchCase="true" select="[ui-select-trigger]"></ng-content>
+    <span *ngSwitchDefault>{{ triggerLabel || placeholder }}</span>
+</ng-container>
+
+<ng-template cdk-connected-overlay
+             cdkConnectedOverlayHasBackdrop
+             cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+             [cdkConnectedOverlayOrigin]="origin"
+             [cdkConnectedOverlayOpen]="isOpen"
+             [cdkConnectedOverlayPositions]="[position]"
+             (detach)="close(true)"
+             (backdropClick)="close()">
+
+    <div class="ui-select-listbox"
+         #listbox
+         tabindex="-1"
+         [id]="id + '-listbox'"
+         [attr.role]="role"
+         [attr.aria-required]="required"
+         [attr.aria-disabled]="disabled"
+         [attr.aria-multiselectable]="multiple"
+         [attr.aria-activedescendant]="activeDescendant"
+         (blur)="_onBlur($event)"
+         (click)="_onClick($event)"
+         (keydown)="_onKeyDown($event)">
+        <ng-content></ng-content>
+    </div>
+
+</ng-template>
